@@ -1,0 +1,13 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+:root {
+	width: 100%;
+}
+
+body {
+	margin: 0;
+}

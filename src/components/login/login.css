@@ -1,0 +1,99 @@
+/**
+* Code generated with ODS RADD Code Generator
+* 2025-10-17 (v1.34.1) - uid: 56e6b765
+* Figma link: https://figma.com/design/GI7aR0Nmqbm0tGOUBD9wup/MMKC workshop?node-id=1-3175
+*/
+
+.login-plugin-login-container {
+ padding: var(--spacing-layout-3) var(--spacing-layout-3) var(--spacing-layout-3) var(--spacing-layout-3);
+ overflow: hidden;
+ align-items: center;
+ background: var(--colours-basic-background);
+ max-width: 1920px;
+ min-width: 320px;
+ min-height: 932px;
+ flex: 1;
+}
+
+.login-plugin-text-container {
+ gap: var(--spacing-layout-1);
+ padding: var(--spacing-layout-3) var(--spacing-layout-1) var(--spacing-layout-3) var(--spacing-layout-1);
+ align-items: center;
+ max-width: 480px;
+ min-width: 280px;
+ width: 100%;
+}
+
+.login-plugin-header-text-container {
+ font: var(--title-l);
+ letter-spacing: var(--title-l-letter-spacing);
+ color: var(--colours-basic-text);
+ text-align: center;
+ width: 100%;
+ vertical-align: top;
+}
+
+.login-plugin-subheader-text-container {
+ font: var(--body-l);
+ letter-spacing: var(--body-l-letter-spacing);
+ color: var(--colours-basic-text);
+ text-align: center;
+ width: 100%;
+ vertical-align: top;
+}
+
+.login-plugin-content-container {
+ gap: var(--spacing-layout-2);
+ padding: var(--spacing-layout-3) var(--spacing-layout-1) var(--spacing-layout-3) var(--spacing-layout-1);
+ align-items: center;
+ max-width: 480px;
+ min-width: 280px;
+ width: 100%;
+}
+
+.login-plugin-credentials-container,
+.login-plugin-buttons-container {
+ gap: var(--spacing-layout-1);
+ align-items: center;
+ width: 100%;
+}
+
+.login-plugin-ods-text-field-container,
+.login-plugin-ods-button-container {
+ width: 100%;
+}
+
+.login-plugin-remember-me-password-container {
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
+}
+.ODSCheckbox {
+  width: auto;
+ }
+
+.login-plugin-divider-container-container,
+.login-plugin-sign-up-container {
+ gap: var(--spacing-layout-1);
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+}
+
+.login-plugin-ods-divider-container {
+ flex: 1;
+}
+
+.login-plugin-or-text-container {
+ font: var(--body-l);
+ letter-spacing: var(--body-l-letter-spacing);
+ color: var(--colours-basic-text);
+ vertical-align: top;
+}
+
+.login-plugin-sign-up-prompt-text-text-container {
+ font: var(--body-m-regular);
+ letter-spacing: var(--body-m-regular-letter-spacing);
+ color: var(--colours-basic-text);
+ vertical-align: top;
+}

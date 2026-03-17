@@ -1,0 +1,121 @@
+/**
+* Code generated with ODS RADD Code Generator
+* 2025-10-17 (v1.34.1) - uid: 335a54f9
+* Figma link: https://figma.com/design/w4dPPPl6RLEqhPwkGhZJ1h/Template for Workshop?node-id=344-4037
+*/
+
+.page-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--spacing-layout-1);
+}
+
+.page-content-container {
+  gap: var(--spacing-layout-6);
+  padding: var(--spacing-layout-1) 0 var(--spacing-layout-6) 0;
+  align-items: start;
+  width: var(--columns-6-columns);
+}
+
+.title-container {
+  gap: var(--spacing-component-3);
+  padding: var(--spacing-component-0) var(--spacing-component-0)
+    var(--spacing-component-0) var(--spacing-component-0);
+  border-radius: var(--radius-zero);
+  align-items: start;
+  width: 100%;
+}
+
+.actions-container {
+  padding: var(--spacing-component-0) var(--spacing-component-0)
+    var(--spacing-component-0) var(--spacing-component-0);
+  border-radius: var(--radius-zero);
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+
+.ods-link-container {
+  flex: 1;
+}
+
+.modul-section-list-container-container {
+  gap: var(--spacing-layout-5);
+  align-items: start;
+  width: 100%;
+  max-width: var(--columns-7-columns);
+  flex-direction: column;
+  display: flex;
+}
+
+.checkout-module-container {
+  gap: var(--spacing-layout-2);
+  align-items: start;
+  width: 100%;
+}
+
+.com-process-stepper-checkout-container,
+.ods-card-choice-simple-private-container,
+.ods-card-choice-simple-business-container {
+  width: 100%;
+}
+
+.content-container {
+  padding: var(--spacing-component-0) var(--spacing-layout-0)
+    var(--spacing-component-0) var(--spacing-layout-0);
+  align-items: start;
+  width: 100%;
+}
+
+.registration-login-tdg-container {
+  gap: var(--spacing-component-9);
+  align-items: start;
+  width: 100%;
+}
+
+.options-container {
+  gap: var(--spacing-component-3);
+  padding: var(--spacing-component-0) var(--spacing-component-0)
+    var(--spacing-component-0) var(--spacing-component-0);
+  align-items: start;
+  width: 100%;
+}
+
+.action-buttons-container {
+  align-items: start;
+  width: 100%;
+}
+
+.ods-button-continue-container {
+  width: 100%;
+  height: 64px;
+}
+
+/**
+* Code generated with ODS RADD Code Generator
+* 2025-10-17 (v1.34.1) - uid: 10a394b0
+* Figma link: https://figma.com/design/w4dPPPl6RLEqhPwkGhZJ1h/Template for Workshop?node-id=I344-4049;20439:2835
+*/
+
+.left-content-container {
+  gap: var(--spacing-component-2);
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+}
+
+.heading-text-container {
+  font: var(--title-s);
+  letter-spacing: var(--title-s-letter-spacing);
+  color: var(--colours-basic-text);
+  width: 100%;
+}
+
+.label-bottom-text-container {
+  font: var(--body-m-bold);
+  letter-spacing: var(--body-m-bold-letter-spacing);
+  color: var(--colours-basic-text);
+  width: 100%;
+}

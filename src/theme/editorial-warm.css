@@ -1,0 +1,77 @@
+/* ========================================================
+   EDITORIAL WARM THEME — Reusable Snippet
+   ========================================================
+   
+   Theme: "Editorial Warm" / "Terracotta Editorial"
+   Fonts: Playfair Display (headings) + Source Sans 3 (body) + JetBrains Mono (code)
+   Border Radius: 0.625rem
+   
+   Usage: Add class "light" or "dark" to your root element, or use
+   data-theme="light|dark" attribute.
+   
+   Google Fonts import:
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+   ======================================================== */
+
+/* ========== LIGHT MODE ========== */
+[data-theme="light"],
+.light {
+  --bg:               hsl(40, 20%, 98%);
+  --bg-alt:           hsl(40, 15%, 95%);
+  --bg-card:          hsl(40, 15%, 97%);
+  --bg-card-hover:    hsl(40, 15%, 94%);
+  --fg:               hsl(220, 20%, 12%);
+  --fg-secondary:     hsl(220, 10%, 46%);
+  --fg-muted:         hsl(220, 10%, 62%);
+  --primary:          hsl(16, 65%, 50%);
+  --primary-dim:      hsla(16, 65%, 50%, 0.12);
+  --primary-glow:     hsla(16, 65%, 50%, 0.25);
+  --accent:           hsl(200, 60%, 48%);
+  --accent-dim:       hsla(200, 60%, 48%, 0.1);
+  --border:           hsl(40, 15%, 88%);
+  --border-hover:     hsl(40, 15%, 78%);
+  --card-shadow:      0 4px 24px hsla(220, 20%, 12%, 0.06);
+  --card-shadow-hover:0 16px 48px hsla(220, 20%, 12%, 0.1);
+  --success:          hsl(150, 60%, 40%);
+  --radius:           0.625rem;
+}
+
+/* ========== DARK MODE ========== */
+[data-theme="dark"],
+.dark {
+  --bg:               hsl(220, 20%, 8%);
+  --bg-alt:           hsl(220, 18%, 11%);
+  --bg-card:          hsl(220, 18%, 12%);
+  --bg-card-hover:    hsl(220, 18%, 16%);
+  --fg:               hsl(40, 15%, 93%);
+  --fg-secondary:     hsl(40, 10%, 60%);
+  --fg-muted:         hsl(220, 10%, 42%);
+  --primary:          hsl(16, 65%, 55%);
+  --primary-dim:      hsla(16, 65%, 55%, 0.15);
+  --primary-glow:     hsla(16, 65%, 55%, 0.3);
+  --accent:           hsl(200, 60%, 55%);
+  --accent-dim:       hsla(200, 60%, 55%, 0.1);
+  --border:           hsl(220, 15%, 20%);
+  --border-hover:     hsl(220, 15%, 28%);
+  --card-shadow:      0 4px 24px hsla(0, 0%, 0%, 0.3);
+  --card-shadow-hover:0 16px 48px hsla(0, 0%, 0%, 0.4);
+  --success:          hsl(150, 60%, 50%);
+  --radius:           0.625rem;
+}
+
+/* ========== BASE TYPOGRAPHY ========== */
+/*
+  body {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  }
+*/

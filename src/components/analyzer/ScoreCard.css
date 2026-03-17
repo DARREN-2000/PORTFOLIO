@@ -1,0 +1,19 @@
+.score-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--colours-basic-background-card, var(--mode-basic-background-card));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.score-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--colours-basic-text);
+}
+
+.score-card-value--good { color: #2e7d32; }
+.score-card-value--ok { color: #f9a825; }
+.score-card-value--bad { color: var(--colours-basic-text-dominant); }

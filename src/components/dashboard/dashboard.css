@@ -1,0 +1,141 @@
+/**
+* Code generated with ODS RADD Code Generator
+* 2025-10-17 (v1.34.1) - uid: 56e6b7a5
+* Figma link: https://figma.com/design/GI7aR0Nmqbm0tGOUBD9wup/MMKC workshop?node-id=1-3197
+*/
+
+.plan-build-your-plan-container {
+ padding: 0 var(--spacing-layout-10) 0 var(--spacing-layout-10);
+ overflow: hidden;
+ align-items: center;
+ background: var(--colours-basic-background);
+ max-width: 1920px;
+ min-width: 320px;
+ min-height: 932px;
+ flex: 1;
+}
+
+.plan-page-content-container {
+ align-items: center;
+ max-width: 1184px;
+ min-width: 280px;
+ width: 100%;
+}
+
+.plan-menu-container {
+ padding: var(--spacing-layout-2) 0 var(--spacing-layout-2) 0;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1184px;
+ min-width: 280px;
+ width: 100%;
+ flex-wrap: wrap;
+}
+
+.plan-user-container {
+ gap: var(--spacing-component-4);
+ justify-content: end;
+ align-items: center;
+}
+
+.plan-jane-doe-text-container {
+ font: var(--body-m-bold);
+ letter-spacing: var(--body-m-bold-letter-spacing);
+ color: var(--colours-basic-text);
+ text-align: center;
+ width: 61px;
+}
+
+.plan-build-your-plan-section-container {
+ padding: var(--spacing-layout-2) 0 var(--spacing-layout-2) 0;
+ justify-content: center;
+ align-items: start;
+ min-width: 280px;
+ width: 100%;
+}
+
+.plan-build-your-plan-header-text-container {
+ font: var(--title-l);
+ letter-spacing: var(--title-l-letter-spacing);
+ color: var(--colours-basic-text);
+ width: 100%;
+ vertical-align: top;
+}
+
+.plan-step-1-container {
+ gap: var(--spacing-layout-1);
+ padding: var(--spacing-layout-3) 0 var(--spacing-layout-1) 0;
+ align-items: start;
+ width: 100%;
+}
+
+.plan-plan-question-header-text-container {
+ font: var(--body-l);
+ letter-spacing: var(--body-l-letter-spacing);
+ color: var(--colours-basic-text-recessive);
+ vertical-align: top;
+}
+
+.plan-data-chips-container,
+.plan-card-chips-container,
+.plan-contract-chips-container {
+ row-gap: 16px;
+ column-gap: var(--spacing-layout-1);
+ align-items: start;
+ width: 100%;
+ flex-wrap: wrap;
+}
+
+.plan-step-2-container {
+ gap: var(--spacing-layout-1);
+ padding: var(--spacing-layout-2) 0 var(--spacing-layout-1) 0;
+ align-items: start;
+ width: 100%;
+}
+
+.plan-step-3-container {
+ gap: var(--spacing-layout-1);
+ padding: var(--spacing-component-7) 0 var(--spacing-component-5) 0;
+ align-items: start;
+ width: 100%;
+}
+
+.plan-existing-customer-container {
+ padding: var(--spacing-layout-2) 0 var(--spacing-layout-1) 0;
+ align-items: start;
+ width: 100%;
+}
+
+.plan-ods-switch-container,
+.plan-ods-divider-container,
+.plan-ods-accordion-container {
+ width: 100%;
+}
+
+.plan-fa-qs-section-container {
+ gap: var(--spacing-layout-3);
+ padding: var(--spacing-layout-9) 0 var(--spacing-layout-9) 0;
+ align-items: start;
+ min-width: 280px;
+ width: 100%;
+}
+
+.plan-title-button-container {
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
+}
+
+.plan-frequently-asked-questions-header-text-container {
+ font: var(--title-s);
+ letter-spacing: var(--title-s-letter-spacing);
+ color: var(--colours-basic-text);
+ flex: 1;
+ vertical-align: top;
+}
+
+.plan-fa-qs-container {
+ gap: var(--spacing-layout-1);
+ align-items: start;
+ width: 100%;
+}

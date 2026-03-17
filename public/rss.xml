@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/1999/xhtml">
+  <channel>
+    <title>Darren.dev — AI/ML Engineering Blog</title>
+    <link>https://darren-2000.github.io/</link>
+    <description>Technical tutorials, project breakdowns, and industry insights on AI, MLOps, and Data Engineering by Morris Darren Babu.</description>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://darren-2000.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>How I Built a Scalable REST API with FastAPI &amp; Docker</title>
+      <description>A deep dive into designing, building, and deploying a production-grade REST API that handles 10K+ requests/sec.</description>
+      <pubDate>Mon, 15 Dec 2025 00:00:00 GMT</pubDate>
+      <category>Tutorial</category>
+      <guid>scalable-rest-api</guid>
+    </item>
+    <item>
+      <title>Deploying ML Models with Docker &amp; Kubernetes: A Complete Guide</title>
+      <description>From local development to production K8s cluster — the full journey of containerizing and orchestrating ML workloads.</description>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
+      <category>DevOps</category>
+      <guid>docker-kubernetes</guid>
+    </item>
+    <item>
+      <title>Building Production RAG Pipelines: Lessons from Real Projects</title>
+      <description>Retrieval-Augmented Generation pipelines that actually work in production — embeddings, chunking strategies, and evaluation.</description>
+      <pubDate>Mon, 20 Oct 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <guid>rag-pipeline</guid>
+    </item>
+    <item>
+      <title>MLOps Monitoring: Detecting Model Drift Before It's Too Late</title>
+      <description>How to build a comprehensive monitoring system that catches data drift, concept drift, and performance degradation.</description>
+      <pubDate>Mon, 15 Sep 2025 00:00:00 GMT</pubDate>
+      <category>MLOps</category>
+      <guid>mlops-monitoring</guid>
+    </item>
+    <item>
+      <title>Graph Neural Networks Explained: From Theory to PyTorch Implementation</title>
+      <description>Understanding GNNs through intuitive examples and building one from scratch with PyTorch Geometric.</description>
+      <pubDate>Sun, 10 Aug 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <guid>graph-neural-networks</guid>
+    </item>
+    <item>
+      <title>Advanced Prompt Engineering: Techniques That Actually Work</title>
+      <description>Beyond 'act as X' — systematic approaches to prompt design including chain-of-thought, few-shot, and self-consistency.</description>
+      <pubDate>Tue, 22 Jul 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <guid>prompt-engineering</guid>
+    </item>
+    <item>
+      <title>CI/CD for Machine Learning: Automating the Entire Pipeline</title>
+      <description>How to set up GitHub Actions workflows that test, validate, and deploy ML models automatically on every push.</description>
+      <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
+      <category>DevOps</category>
+      <guid>ci-cd-ml</guid>
+    </item>
+    <item>
+      <title>Vector Databases Deep Dive: Choosing the Right One for Your AI App</title>
+      <description>Comparing Pinecone, Weaviate, Qdrant, and FAISS for production vector search — benchmarks, costs, and trade-offs.</description>
+      <pubDate>Mon, 05 May 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <guid>vector-databases</guid>
+    </item>
+    <item>
+      <title>Infrastructure as Code for ML: Terraform Patterns That Scale</title>
+      <description>Battle-tested Terraform modules for GPU clusters, model registries, and auto-scaling inference endpoints.</description>
+      <pubDate>Sat, 12 Apr 2025 00:00:00 GMT</pubDate>
+      <category>DevOps</category>
+      <guid>terraform-infra</guid>
+    </item>
+    <item>
+      <title>Fine-Tuning LLMs on a Budget: LoRA, QLoRA, and Beyond</title>
+      <description>Practical guide to fine-tuning large language models when you don't have unlimited GPU budgets.</description>
+      <pubDate>Sat, 01 Mar 2025 00:00:00 GMT</pubDate>
+      <category>AI/ML</category>
+      <guid>llm-fine-tuning</guid>
+    </item>
+  </channel>
+</rss>
