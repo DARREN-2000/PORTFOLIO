@@ -1,8 +1,10 @@
-import { ODSGlobalHeaderFlyoutMenu, ODSGlobalHeaderIconButton } from "@telekom-ods/react-ui-kit";
+import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeProvider";
 
 export function SchemeSelector() {
   const { scheme, setScheme } = useTheme();
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const schemes = [
     { value: "neutral", label: "Neutral" },
@@ -12,19 +14,41 @@ export function SchemeSelector() {
     { value: "magenta", label: "Magenta" }
   ] as const;
 
-  return (
-    <ODSGlobalHeaderFlyoutMenu 
-      trigger={
-        <ODSGlobalHeaderIconButton
-          icon="color-selection-type-standard"
-          label={`${scheme.charAt(0).toUpperCase() + scheme.slice(1)}`}
-        />
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
       }
-      items={schemes.map((schemeOption) => ({
-        label: schemeOption.label,
-        onClick: () => setScheme(schemeOption.value),
-        selected: scheme === schemeOption.value
-      }))}
-    />
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={menuRef} style={{ position: "relative", display: "inline-block" }}>
+      <button
+        className="scheme-selector-btn"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        🎨 {scheme.charAt(0).toUpperCase() + scheme.slice(1)}
+      </button>
+      {open && (
+        <ul className="scheme-selector-menu" role="listbox">
+          {schemes.map((s) => (
+            <li
+              key={s.value}
+              role="option"
+              aria-selected={scheme === s.value}
+              className={`scheme-selector-item${scheme === s.value ? " scheme-selector-item--selected" : ""}`}
+              onClick={() => { setScheme(s.value); setOpen(false); }}
+            >
+              {s.label}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

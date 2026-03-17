@@ -1,4 +1,3 @@
-import { ODSBox, ODSText, ODSTagStatic } from "@telekom-ods/react-ui-kit";
 import type { Issue } from "./analyzeCode";
 import "./IssueList.css";
 
@@ -6,53 +5,53 @@ interface IssueListProps {
   issues: Issue[];
 }
 
-const severityToTagType = (s: Issue["severity"]) => {
-  if (s === "error") return "error" as const;
-  if (s === "warning") return "warning" as const;
-  return "subtle" as const;
+const severityToClass = (s: Issue["severity"]) => {
+  if (s === "error") return "tag--error";
+  if (s === "warning") return "tag--warning";
+  return "tag--subtle";
 };
 
 export const IssueList = ({ issues }: IssueListProps) => {
   if (issues.length === 0) {
     return (
-      <ODSBox as="div" className="issue-list-empty">
-        <ODSText as="p" className="ods-typography-body-m-regular" style={{ color: "var(--colours-basic-text-recessive)" }}>
+      <div className="issue-list-empty">
+        <p className="ods-typography-body-m-regular" style={{ color: "var(--colours-basic-text-recessive)" }}>
           No issues found — your code is solid! ✨
-        </ODSText>
-      </ODSBox>
+        </p>
+      </div>
     );
   }
 
   return (
-    <ODSBox as="div" className="issue-list">
-      <ODSText as="h2" className="ods-typography-title-s" style={{ color: "var(--colours-basic-text)" }}>
+    <div className="issue-list">
+      <h2 className="ods-typography-title-s" style={{ color: "var(--colours-basic-text)" }}>
         Issues Found ({issues.length})
-      </ODSText>
-      <ODSBox as="div" className="issue-items">
+      </h2>
+      <div className="issue-items">
         {issues.map((issue, i) => (
-          <ODSBox as="div" key={i} className={`issue-item issue-item--${issue.severity}`}>
-            <ODSBox as="div" className="issue-item-top">
-              <ODSText as="span" className="ods-typography-body-m-bold" style={{ color: "var(--colours-basic-text)" }}>
+          <div key={i} className={`issue-item issue-item--${issue.severity}`}>
+            <div className="issue-item-top">
+              <span className="ods-typography-body-m-bold" style={{ color: "var(--colours-basic-text)" }}>
                 {issue.title}
-              </ODSText>
-              <ODSTagStatic label={issue.severity} type={severityToTagType(issue.severity)} />
-            </ODSBox>
-            <ODSText as="p" className="ods-typography-body-s-regular" style={{ color: "var(--colours-basic-text-recessive)" }}>
+              </span>
+              <span className={`tag ${severityToClass(issue.severity)}`}>{issue.severity}</span>
+            </div>
+            <p className="ods-typography-body-s-regular" style={{ color: "var(--colours-basic-text-recessive)" }}>
               {issue.message}
-            </ODSText>
+            </p>
             {issue.suggestion && (
-              <ODSBox as="div" className="issue-suggestion">
-                <ODSText as="span" className="ods-typography-body-s-bold" style={{ color: "var(--colours-basic-text-dominant)" }}>
+              <div className="issue-suggestion">
+                <span className="ods-typography-body-s-bold" style={{ color: "var(--colours-basic-text-dominant)" }}>
                   💡 Fix:
-                </ODSText>
-                <ODSText as="span" className="ods-typography-body-s-regular" style={{ color: "var(--colours-basic-text)" }}>
+                </span>
+                <span className="ods-typography-body-s-regular" style={{ color: "var(--colours-basic-text)" }}>
                   {" "}{issue.suggestion}
-                </ODSText>
-              </ODSBox>
+                </span>
+              </div>
             )}
-          </ODSBox>
+          </div>
         ))}
-      </ODSBox>
-    </ODSBox>
+      </div>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useInView } from "../../hooks/useAnimations";
-import { ODSText, ODSTagStatic } from "@telekom-ods/react-ui-kit";
 
 interface ProjectCardProps {
   title: string;
@@ -25,16 +24,16 @@ const ProjectCard = ({ title, subtitle, desc, tags, impact, index }: ProjectCard
     >
       <div className="project-card-inner">
         <div className="project-number">{String(index + 1).padStart(2, "0")}</div>
-        <ODSText as="h3" className="project-title">{title}</ODSText>
-        <ODSText as="span" className="project-subtitle">{subtitle}</ODSText>
-        <ODSText as="p" className="project-desc">{desc}</ODSText>
+        <h3 className="project-title">{title}</h3>
+        <span className="project-subtitle">{subtitle}</span>
+        <p className="project-desc">{desc}</p>
         <div className="project-impact">
           <span className="impact-indicator" />
-          <ODSText as="span" className="impact-text">{impact}</ODSText>
+          <span className="impact-text">{impact}</span>
         </div>
         <div className="project-tags">
           {tags.map((t) => (
-            <ODSTagStatic key={t} label={t} type="subtle" />
+            <span key={t} className="tag tag--subtle">{t}</span>
           ))}
         </div>
       </div>
