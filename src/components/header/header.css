@@ -1,3 +1,153 @@
 .ODSStandardGlobalHeader {
   position: sticky;
 }
+
+/* Plain HTML replacement for global header */
+.global-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #e20074;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.global-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.global-header-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.global-header-app-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  flex-shrink: 0;
+}
+
+.global-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.global-header-nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.global-header-nav a:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+/* SchemeSelector styles */
+.scheme-selector-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg, #1a1a1a);
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #ddd);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.scheme-selector-btn:hover {
+  border-color: var(--primary, #e20074);
+  box-shadow: 0 0 0 2px var(--primary-dim, rgba(226,0,116,0.1));
+}
+
+.scheme-selector-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 140px;
+  padding: 6px 0;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #ddd);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  list-style: none;
+  margin: 0;
+  z-index: 200;
+}
+
+.scheme-selector-item {
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--fg, #1a1a1a);
+  transition: background 0.15s;
+}
+
+.scheme-selector-item:hover {
+  background: var(--bg-alt, #f5f5f5);
+}
+
+.scheme-selector-item--selected {
+  font-weight: 600;
+  color: var(--primary, #e20074);
+}
+
+/* Checkout button */
+.checkout-btn-primary {
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: #e20074;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.checkout-btn-primary:hover {
+  background: #b0003a;
+}
+
+/* Card choice (radio option card) */
+.card-choice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1.5px solid var(--colours-basic-stroke-subtle, #ddd);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.card-choice:hover {
+  border-color: #e20074;
+}
+
+.card-choice input[type="radio"] {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  accent-color: #e20074;
+}

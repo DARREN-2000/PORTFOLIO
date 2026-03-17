@@ -1,5 +1,4 @@
 import { useInView } from "../../hooks/useAnimations";
-import { ODSText, ODSTagStatic } from "@telekom-ods/react-ui-kit";
 
 interface SkillCategoryProps {
   title: string;
@@ -19,7 +18,7 @@ const SkillCategory = ({ title, icon, skills, index }: SkillCategoryProps) => {
     >
       <div className="skill-category-header">
         <span className="skill-icon">{icon}</span>
-        <ODSText as="h3" className="skill-title">{title}</ODSText>
+        <h3 className="skill-title">{title}</h3>
       </div>
       <div className="skill-chips">
         {skills.map((s) => (

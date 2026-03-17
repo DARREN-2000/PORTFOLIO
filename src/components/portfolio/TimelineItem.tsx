@@ -1,5 +1,4 @@
 import { useInView } from "../../hooks/useAnimations";
-import { ODSText, ODSTagStatic } from "@telekom-ods/react-ui-kit";
 
 interface TimelineItemProps {
   period: string;
@@ -29,12 +28,12 @@ const TimelineItem = ({ period, role, company, location, icon, description, bull
       <div className="timeline-card">
         <div className="timeline-header">
           <div className="timeline-meta">
-            <ODSText as="span" className="timeline-period">{period}</ODSText>
-            <ODSText as="span" className="timeline-location">{location}</ODSText>
+            <span className="timeline-period">{period}</span>
+            <span className="timeline-location">{location}</span>
           </div>
-          <ODSText as="h3" className="timeline-role">{role}</ODSText>
-          <ODSText as="span" className="timeline-company">{company}</ODSText>
-          <ODSText as="span" className="timeline-desc">{description}</ODSText>
+          <h3 className="timeline-role">{role}</h3>
+          <span className="timeline-company">{company}</span>
+          <span className="timeline-desc">{description}</span>
         </div>
 
         {metrics && metrics.length > 0 && (
@@ -48,14 +47,14 @@ const TimelineItem = ({ period, role, company, location, icon, description, bull
         <ul className="timeline-bullets">
           {bullets.map((b, i) => (
             <li key={i}>
-              <ODSText as="span" className="ods-typography-body-s-regular">{b}</ODSText>
+              <span className="timeline-bullet-text">{b}</span>
             </li>
           ))}
         </ul>
 
         <div className="timeline-tech">
           {tech.map((t) => (
-            <ODSTagStatic key={t} label={t} type="subtle" />
+            <span key={t} className="tag tag--subtle">{t}</span>
           ))}
         </div>
       </div>
