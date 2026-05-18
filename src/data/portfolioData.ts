@@ -242,7 +242,7 @@ export const portfolioData = {
       desc: "Relevance engine for intelligent search ranking and content recommendation using NLP techniques.",
       tags: ["Python", "NLP", "Search", "Ranking"],
       impact: "Intelligent content ranking",
-      github: "https://github.com/DARREN-2000/Relevanace_Engine",
+      github: "https://github.com/DARREN-2000/Relevance_Engine",
     },
     {
       title: "Cloud-Native Cassandra CRUD",
