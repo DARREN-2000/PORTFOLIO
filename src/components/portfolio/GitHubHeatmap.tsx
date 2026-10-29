@@ -63,13 +63,13 @@ export default function GitHubHeatmap() {
   return (
     <div className="heatmap-widget">
       <div className="heatmap-header">
-        <span className="heatmap-title">📊 Contribution Activity</span>
-        <span className="heatmap-total">{total} contributions in the last year</span>
+        <span className="heatmap-title">📊 Contribution Rhythm (illustrative)</span>
+        <span className="heatmap-total">A visual practice surface, not live GitHub activity</span>
       </div>
       <div className="heatmap-stats">
-        <span className="heatmap-stat">🔥 {streak} day streak</span>
-        <span className="heatmap-stat">📈 Best day: {maxVal} commits</span>
-        <span className="heatmap-stat">📅 Avg: {Math.round(total / 365)}/day</span>
+        <span className="heatmap-stat">🔥 {streak} sample day streak</span>
+        <span className="heatmap-stat">📈 Sample peak: {maxVal}</span>
+        <span className="heatmap-stat">📅 Sample average: {Math.round(total / 365)}/day</span>
       </div>
       <div className="heatmap-months">
         {MONTHS.map(m => <span key={m} className="heatmap-month">{m}</span>)}

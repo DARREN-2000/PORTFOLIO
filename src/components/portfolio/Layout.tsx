@@ -7,6 +7,10 @@ import Chatbot from "./Chatbot";
 const NAV_ITEMS = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About" },
+  { path: "/projects", label: "Projects" },
+  { path: "/commands", label: "Commands" },
+  { path: "/systems", label: "Systems" },
+  { path: "/thesis", label: "Thesis" },
   { path: "/blog", label: "Blog" },
   { path: "/learn", label: "Learn" },
   { path: "/playground", label: "Play" },
@@ -37,6 +41,37 @@ const Layout: React.FC<LayoutProps> = ({ children, theme, setTheme }) => {
   useEffect(() => {
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0 });
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const pageTitles: Record<string, string> = {
+      "/": "Morris Darren Babu — Founding Engineer | AI Platforms & LLMOps",
+      "/about": "About Morris Darren Babu — Founding Engineer",
+      "/projects": "Project Archive — Morris Darren Babu",
+      "/commands": "Developer Commands — Morris Darren Babu",
+      "/systems": "Systems Map — Morris Darren Babu",
+      "/thesis": "AI in Automotive Systems — Thesis | Morris Darren Babu",
+      "/blog": "Writing — Morris Darren Babu",
+      "/learn": "Learn — Morris Darren Babu",
+      "/playground": "Playground — Morris Darren Babu",
+    };
+    document.title = pageTitles[location.pathname] || "Project Record — Morris Darren Babu";
+    const descriptions: Record<string, string> = {
+      "/": "Portfolio of Morris Darren Babu, a Founding Engineer building AI platforms, LLM infrastructure, agentic workflows, and developer tools.",
+      "/about": "Experience, education, and engineering focus areas of Morris Darren Babu.",
+      "/projects": "Explore selected and complete project records across AI systems, infrastructure, data, research, and developer tooling.",
+      "/commands": "A practical command index for exploring Morris Darren Babu's portfolio, projects, and technical focus.",
+      "/systems": "A systems map connecting Morris Darren Babu's engineering themes to projects and implementation patterns.",
+      "/thesis": "Technical thesis showcase: LLM-driven white-box fuzzing, model evaluation, optimization, and CI/CD/CT integration for automotive systems.",
+    };
+    const description = descriptions[location.pathname] || "A project record from Morris Darren Babu's engineering portfolio.";
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", description);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -146,15 +181,16 @@ ${d.projects.slice(0, 4).map((p, i) => `<div class="slide">
 
       <nav className="nav">
         <div className="nav-inner">
-          <span className="nav-logo" onClick={() => navigate('/')}>
+          <button className="nav-logo" onClick={() => navigate('/')} aria-label="Go to Darren.dev home">
             Darren<span className="nav-logo-dot">.dev</span>
-          </span>
-          <div className={`nav-links ${mobileMenuOpen ? 'nav-links--open' : ''}`}>
+          </button>
+          <div id="primary-navigation" className={`nav-links ${mobileMenuOpen ? 'nav-links--open' : ''}`} aria-label="Primary navigation">
             {NAV_ITEMS.map(item => (
               <button
                 key={item.path}
-                className={`nav-link ${location.pathname === item.path ? 'nav-link--active' : ''}`}
+                className={`nav-link ${location.pathname === item.path || (item.path === '/projects' && location.pathname.startsWith('/projects/')) ? 'nav-link--active' : ''}`}
                 onClick={() => navigate(item.path)}
+                aria-current={location.pathname === item.path || (item.path === '/projects' && location.pathname.startsWith('/projects/')) ? "page" : undefined}
               >
                 {item.label}
               </button>
@@ -168,29 +204,34 @@ ${d.projects.slice(0, 4).map((p, i) => `<div class="slide">
               <button
                 className="nav-link nav-download-trigger"
                 onClick={() => setDownloadOpen(o => !o)}
+                aria-expanded={downloadOpen}
+                aria-haspopup="menu"
               >
                 📥 Download ▾
               </button>
               {downloadOpen && (
-                <div className="nav-download-menu">
+                <div className="nav-download-menu" role="menu">
                   <a
                     href={portfolioData.resume}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="nav-download-item"
+                    role="menuitem"
                     onClick={() => setDownloadOpen(false)}
                   >
-                    📄 Resume from GitHub
+                    📄 Interim Resume
                   </a>
                   <button
                     className="nav-download-item"
                     onClick={() => { handlePortfolioSlides(); setDownloadOpen(false); }}
+                    role="menuitem"
                   >
                     📊 Portfolio Slides
                   </button>
                   <button
                     className="nav-download-item"
                     onClick={() => { handlePortfolioResume(); setDownloadOpen(false); }}
+                    role="menuitem"
                   >
                     🖨️ Portfolio Resume (PDF)
                   </button>
@@ -205,10 +246,10 @@ ${d.projects.slice(0, 4).map((p, i) => `<div class="slide">
             </div>
           </div>
 
-          <button className="theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label="Toggle theme">
+          <button className="theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} aria-pressed={theme === 'dark'}>
             <span className="theme-icon">{theme === 'light' ? '🌙' : '☀️'}</span>
           </button>
-          <button className="nav-hamburger" onClick={() => setMobileMenuOpen(o => !o)} aria-label="Menu">
+          <button className="nav-hamburger" onClick={() => setMobileMenuOpen(o => !o)} aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="primary-navigation">
             <span className={`hamburger-line ${mobileMenuOpen ? 'hamburger-line--open' : ''}`} />
           </button>
         </div>
@@ -223,7 +264,7 @@ ${d.projects.slice(0, 4).map((p, i) => `<div class="slide">
           <div className="footer-top">
             <div className="footer-brand">
               <span className="footer-logo">Darren<span className="nav-logo-dot">.dev</span></span>
-              <p className="footer-tagline">MLOps Engineer & AI Specialist — building intelligent systems at scale.</p>
+              <p className="footer-tagline">Founding Engineer — building AI platforms and intelligent systems at scale.</p>
             </div>
             <div className="footer-nav">
               <div className="footer-col">
@@ -240,7 +281,7 @@ ${d.projects.slice(0, 4).map((p, i) => `<div class="slide">
               </div>
               <div className="footer-col">
                 <h4 className="footer-col-title">Download</h4>
-                <a href={portfolioData.resume} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Resume from GitHub</a>
+                <a href={portfolioData.resume} target="_blank" rel="noopener noreferrer" className="footer-nav-link">Interim Resume</a>
                 <button className="footer-nav-link" onClick={handlePortfolioSlides}>Portfolio Slides</button>
                 <button className="footer-nav-link" onClick={handlePortfolioResume}>Portfolio Resume</button>
               </div>

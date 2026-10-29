@@ -7,6 +7,11 @@ const Blog = lazy(() => import("./pages/Blog"));
 const Learn = lazy(() => import("./pages/Learn"));
 const Playground = lazy(() => import("./pages/Playground"));
 const About = lazy(() => import("./pages/About"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const Commands = lazy(() => import("./pages/Commands"));
+const Systems = lazy(() => import("./pages/Systems"));
+const Thesis = lazy(() => import("./pages/Thesis"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const PageFallback = () => (
@@ -29,6 +34,11 @@ const App = () => (
         <Route path="/learn" element={<Learn />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/commands" element={<Commands />} />
+        <Route path="/systems" element={<Systems />} />
+        <Route path="/thesis" element={<Thesis />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

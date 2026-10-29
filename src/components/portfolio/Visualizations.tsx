@@ -163,14 +163,16 @@ export const TechStackWheel = () => {
 // ========== Floating Code Snippets ==========
 export const FloatingCodeSnippets = () => {
   const snippets = [
-    { code: "model.train()", lang: "Python" },
-    { code: "docker build .", lang: "Docker" },
-    { code: "kubectl apply -f", lang: "K8s" },
-    { code: "git push origin", lang: "Git" },
-    { code: "cargo build --release", lang: "Rust" },
-    { code: "terraform plan", lang: "Terraform" },
-    { code: "go run main.go", lang: "Go" },
-    { code: "npm run deploy", lang: "Node" },
+    { code: "git diff --check", lang: "Git" },
+    { code: "pytest -q", lang: "Python" },
+    { code: "vllm serve <model>", lang: "LLM" },
+    { code: "docker compose up", lang: "Docker" },
+    { code: "kubectl get pods", lang: "K8s" },
+    { code: "cargo test", lang: "Rust" },
+    { code: "ruff check .", lang: "Quality" },
+    { code: "trivy fs .", lang: "Security" },
+    { code: "npm run build", lang: "Frontend" },
+    { code: "curl /metrics", lang: "Observe" },
   ];
 
   const positions = [
@@ -182,6 +184,8 @@ export const FloatingCodeSnippets = () => {
     { right: '1%', bottom: '32%' },
     { left: '2%', bottom: '12%' },
     { right: '3%', bottom: '15%' },
+    { left: '18%', top: '8%' },
+    { right: '18%', bottom: '8%' },
   ];
 
   return (
