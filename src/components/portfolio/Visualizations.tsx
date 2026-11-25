@@ -163,14 +163,16 @@ export const TechStackWheel = () => {
 // ========== Floating Code Snippets ==========
 export const FloatingCodeSnippets = () => {
   const snippets = [
-    { code: "model.train()", lang: "Python" },
-    { code: "docker build .", lang: "Docker" },
-    { code: "kubectl apply -f", lang: "K8s" },
-    { code: "git push origin", lang: "Git" },
-    { code: "cargo build --release", lang: "Rust" },
-    { code: "terraform plan", lang: "Terraform" },
-    { code: "go run main.go", lang: "Go" },
-    { code: "npm run deploy", lang: "Node" },
+    { code: "git diff --check", lang: "Git" },
+    { code: "pytest -q", lang: "Python" },
+    { code: "vllm serve <model>", lang: "LLM" },
+    { code: "docker compose up", lang: "Docker" },
+    { code: "kubectl get pods", lang: "K8s" },
+    { code: "cargo test", lang: "Rust" },
+    { code: "ruff check .", lang: "Quality" },
+    { code: "trivy fs .", lang: "Security" },
+    { code: "npm run build", lang: "Frontend" },
+    { code: "curl /metrics", lang: "Observe" },
   ];
 
   const positions = [
@@ -182,6 +184,8 @@ export const FloatingCodeSnippets = () => {
     { right: '1%', bottom: '32%' },
     { left: '2%', bottom: '12%' },
     { right: '3%', bottom: '15%' },
+    { left: '18%', top: '8%' },
+    { right: '18%', bottom: '8%' },
   ];
 
   return (
@@ -197,6 +201,115 @@ export const FloatingCodeSnippets = () => {
       ))}
     </div>
   );
+};
+
+export const CinematicMotionField = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const host = canvas.parentElement;
+    if (!host) return;
+    const pointer = { x: -1000, y: -1000 };
+    const particles = Array.from({ length: 68 }, (_, index) => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.00022,
+      vy: (Math.random() - 0.5) * 0.00022,
+      radius: 1 + (index % 3) * 0.45,
+      phase: Math.random() * Math.PI * 2,
+    }));
+    let frame = 0;
+    let width = 0;
+    let height = 0;
+
+    const resize = () => {
+      const bounds = host.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = bounds.width;
+      height = bounds.height;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+    const move = (event: PointerEvent) => {
+      const bounds = canvas.getBoundingClientRect();
+      pointer.x = event.clientX - bounds.left;
+      pointer.y = event.clientY - bounds.top;
+    };
+    const leave = () => {
+      pointer.x = -1000;
+      pointer.y = -1000;
+    };
+    const draw = (time: number) => {
+      context.clearRect(0, 0, width, height);
+      const points = particles.map((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        if (particle.x < 0 || particle.x > 1) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > 1) particle.vy *= -1;
+        const x = particle.x * width;
+        const y = particle.y * height;
+        const dx = pointer.x - x;
+        const dy = pointer.y - y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 180) {
+          particle.x -= (dx / Math.max(distance, 1)) * 0.00018;
+          particle.y -= (dy / Math.max(distance, 1)) * 0.00018;
+        }
+        return { x, y, particle };
+      });
+
+      points.forEach(({ x, y, particle }, index) => {
+        points.slice(index + 1).forEach(({ x: nextX, y: nextY }) => {
+          const distance = Math.hypot(nextX - x, nextY - y);
+          if (distance > 150) return;
+          context.strokeStyle = `hsla(200, 70%, 60%, ${0.12 * (1 - distance / 150)})`;
+          context.lineWidth = 0.7;
+          context.beginPath();
+          context.moveTo(x, y);
+          context.lineTo(nextX, nextY);
+          context.stroke();
+        });
+        const pulse = 0.5 + Math.sin(time * 0.0015 + particle.phase) * 0.25;
+        context.fillStyle = `hsla(16, 75%, 62%, ${pulse})`;
+        context.beginPath();
+        context.arc(x, y, particle.radius + pulse, 0, Math.PI * 2);
+        context.fill();
+      });
+
+      if (pointer.x > 0) {
+        const glow = context.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 130);
+        glow.addColorStop(0, "hsla(16, 75%, 62%, 0.18)");
+        glow.addColorStop(1, "hsla(16, 75%, 62%, 0)");
+        context.fillStyle = glow;
+        context.beginPath();
+        context.arc(pointer.x, pointer.y, 130, 0, Math.PI * 2);
+        context.fill();
+      }
+      frame = requestAnimationFrame(draw);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    host.addEventListener("pointermove", move);
+    host.addEventListener("pointerleave", leave);
+    frame = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", resize);
+      host.removeEventListener("pointermove", move);
+      host.removeEventListener("pointerleave", leave);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="cinematic-motion-field" aria-hidden="true" />;
 };
 
 // ========== Stats Dashboard ==========

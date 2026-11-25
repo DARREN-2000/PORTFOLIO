@@ -9,11 +9,11 @@ interface Message {
 const KNOWLEDGE: { patterns: RegExp[]; answer: string }[] = [
   {
     patterns: [/who (are|is) (you|he|darren|morris)/i, /about (you|him|yourself)/i, /introduce/i, /tell me about/i],
-    answer: `I'm Morris Darren Babu — an MLOps Engineer at Deutsche Telekom, currently finishing my Master's in Data Science at FAU Erlangen-Nürnberg. I build production-grade AI systems, from LLM benchmarking to automotive cybersecurity.`,
+    answer: `I'm Morris Darren Babu — a Founding Engineer focused on AI platforms, LLM infrastructure, agentic workflows, and cloud-native products. I've built production-grade systems across Deutsche Telekom, CARIAD, and BMW Group.`,
   },
   {
     patterns: [/experience|work(ed)?|career|job/i, /compan(y|ies)/i],
-    answer: `I've worked at 6 companies: Deutsche Telekom (MLOps), CARIAD/Volkswagen (Master Thesis — LLM Fuzzing), BMW Group (Data Science/RAG), Crystal Consultancy (Data Analyst), Altascio Technologies (Data Engineering), and Jman Group (Python Developer). I also did a research project with the OSS Group at FAU.`,
+    answer: `I've worked at 6 companies: Deutsche Telekom (AI Platforms & LLMOps), CARIAD/Volkswagen (Master Thesis — LLM Fuzzing), BMW Group (Data Science/RAG), Crystal Consultancy (Data Analyst), Altascio Technologies (Data Engineering), and Jman Group (Python Developer). I also did a research project with the OSS Group at FAU.`,
   },
   {
     patterns: [/skill|tech|stack|tools|language.*program/i],
@@ -21,11 +21,11 @@ const KNOWLEDGE: { patterns: RegExp[]; answer: string }[] = [
   },
   {
     patterns: [/project/i],
-    answer: `Key projects: IntentGraph (Agentic AI), LLM Fuzzing Monitor Dashboard (automotive cybersecurity), GNN Material Wear Prediction, Multilingual OCR System (-89% error rate), Hybrid Movie RecSys (83% precision). All on GitHub: github.com/DARREN-2000`,
+    answer: `Key projects: IntentGraph (Agentic AI), LLM Fuzzing Monitor Dashboard (automotive cybersecurity), GNN Material Wear Prediction, Multilingual OCR System (-89% error rate), and Hybrid Movie Recommendation. All on GitHub: github.com/DARREN-2000`,
   },
   {
     patterns: [/education|degree|university|study|studi/i],
-    answer: `M.Sc. Data Science at FAU Erlangen-Nürnberg (Oct 2022 – Mar 2026), Nanodegree in Predictive Analytics from Udacity, and B.E. in Computer Science from Rajalakshmi Institute of Technology, India.`,
+    answer: `M.Sc. Data Science at FAU Erlangen-Nürnberg (Oct 2022 – Sep 2026), a Nanodegree in Predictive Data Analytics from Udacity, and a B.E. in Computer Science Engineering from Anna University, India.`,
   },
   {
     patterns: [/certif/i],
@@ -37,7 +37,7 @@ const KNOWLEDGE: { patterns: RegExp[]; answer: string }[] = [
   },
   {
     patterns: [/telekom|current|now|doing/i],
-    answer: `At Deutsche Telekom, I built a microservices-based LLM benchmarking framework on vLLM, scaled automated benchmarking via GitLab CI/CD and Kubernetes, and secured enterprise MLflow deployments with Keycloak OIDC/OAuth. Benchmarked 16 LLMs!`,
+    answer: `At Deutsche Telekom, I built an async microservices-based LLM evaluation platform on vLLM, GuideLLM, BFCL, and DeepEval, scaled benchmarking via GitLab CI/CD and Kubernetes, and secured enterprise MLflow with Keycloak OIDC/OAuth.`,
   },
   {
     patterns: [/bmw/i],
@@ -45,7 +45,7 @@ const KNOWLEDGE: { patterns: RegExp[]; answer: string }[] = [
   },
   {
     patterns: [/cariad|volkswagen|vw|thesis/i],
-    answer: `My Master Thesis at CARIAD (VW Group): Implemented AI-driven black-box fuzzing by benchmarking 16 LLM models in Azure AI Foundry, boosting code-flaw detection by 13%. Automated test-case generation cut test creation time by 33%.`,
+    answer: `My Master Thesis at CARIAD (VW Group): Implemented AI-driven white-box fuzzing for C++ automotive platforms, benchmarked 16 LLMs, reduced token consumption by 55%, and improved code-flaw detection by 13%.`,
   },
   {
     patterns: [/llm|large language|gpt|genai|generative/i],

@@ -299,15 +299,15 @@ const About = () => {
             <h2 className="section-title">Publications &<br /><span className="accent-text">Research</span></h2>
           </div>
           <div className="publications-grid">
-            <a href={portfolioData.masterThesis} target="_blank" rel="noopener noreferrer" className="publication-card">
+            <a href="/thesis" className="publication-card">
               <span className="pub-icon">📑</span>
               <div className="pub-body">
                 <h3 className="pub-title">Master Thesis — AI in Automotive Systems</h3>
                 <p className="pub-meta">CARIAD (Volkswagen Group) • Friedrich Alexander University • 2025</p>
-                <p className="pub-desc">Integrating LLMs in CI/CD/CT Pipelines for AI-driven black-box fuzzing</p>
+                <p className="pub-desc">Integrating LLMs in CI/CD/CT Pipelines for AI-driven white-box fuzzing</p>
                 <div className="pub-tags"><span className="tag">LLM</span><span className="tag">Fuzzing</span><span className="tag">Azure AI</span></div>
               </div>
-              <span className="pub-arrow">↗</span>
+              <span className="pub-arrow">→</span>
             </a>
             <a href="https://github.com/DARREN-2000/Hybrid-Movie-Recommendation-System" target="_blank" rel="noopener noreferrer" className="publication-card">
               <span className="pub-icon">📄</span>

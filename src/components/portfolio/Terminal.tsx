@@ -23,7 +23,7 @@ const QUIZ_QUESTIONS = [
   { q: "Which company did Darren do his Master Thesis at?", a: "cariad", options: ["BMW", "CARIAD", "Telekom", "Google"] },
   { q: "What was the OCR system's error rate reduction?", a: "89%", options: ["45%", "67%", "89%", "95%"] },
   { q: "What framework does Darren use for LLM serving?", a: "vllm", options: ["vLLM", "TensorRT", "ONNX", "Triton"] },
-  { q: "Where is Darren currently based?", a: "bonn", options: ["Munich", "Bonn", "Berlin", "Wolfsburg"] },
+  { q: "Where is Darren currently based?", a: "nürnberg", options: ["Munich", "Nürnberg", "Berlin", "Wolfsburg"] },
 ];
 
 const getCommands = (): Record<string, () => string> => ({
@@ -38,6 +38,9 @@ const getCommands = (): Record<string, () => string> => ({
   oss         — OSS research project
   certs       — Certifications
   contact     — Get in touch
+  commands    — Practical engineering command recipes
+  systems     — Core engineering systems and themes
+  principles  — How Darren approaches complex work
   languages   — Spoken languages
   resume      — Download resume
   github      — Open GitHub
@@ -60,8 +63,8 @@ const getCommands = (): Record<string, () => string> => ({
   ascii       — ASCII art`,
   about: () =>
     `Morris Darren Babu
-MLOps Intern @ Deutsche Telekom
-M.Sc. Data Science — FAU Erlangen-Nürnberg (in progress)
+Founding Engineer | AI Platforms & LLMOps
+M.Sc. Data Science — FAU Erlangen-Nürnberg
 ${portfolioData.tagline}`,
   skills: () =>
     portfolioData.skillCategories.map((c) => `${c.icon} ${c.title}: ${c.skills.join(", ")}`).join("\n"),
@@ -87,6 +90,29 @@ ${portfolioData.tagline}`,
 📍 ${portfolioData.location}
 💼 LinkedIn: ${portfolioData.linkedin}
 🖥️ GitHub: ${portfolioData.github}`,
+  commands: () =>
+    `Developer command index
+  git diff --check
+  pytest -q
+  npm run build
+  kubectl rollout status deployment/<name>
+  trivy fs --scanners vuln,secret,misconfig .
+
+Open /commands for the full searchable recipe library.`,
+  systems: () =>
+    `Core systems:
+  model routing & evaluation
+  governed agent workflows
+  AI infrastructure & runtimes
+  applied data products
+
+Open /systems for the connected project map.`,
+  principles: () =>
+    `Engineering principles:
+  make the system legible
+  measure the failure modes
+  ship useful slices
+  keep power governable`,
   languages: () =>
     portfolioData.languages.map((l) => `${l.lang}: ${l.level} (${"█".repeat(Math.round(l.percent / 10))}${"░".repeat(10 - Math.round(l.percent / 10))} ${l.percent}%)`).join("\n"),
   resume: () => {
@@ -101,7 +127,7 @@ ${portfolioData.tagline}`,
     window.open(portfolioData.linkedin, "_blank");
     return "💼 Opening LinkedIn profile...";
   },
-  whoami: () => "darren — MLOps Intern | AI Specialist | M.Sc. Data Science",
+  whoami: () => "darren — Founding Engineer | AI Platforms & LLMOps",
   date: () => new Date().toLocaleString(),
   ls: () => "hero/  experience/  skills/  projects/  certifications/  education/  about/  terminal/  contact/",
   fortune: () => FORTUNES[Math.floor(Math.random() * FORTUNES.length)],

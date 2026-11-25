@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface CaseStudy {
   id: string;
@@ -21,7 +22,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: "LLM Benchmarking Framework at Scale",
     company: "Deutsche Telekom",
     companyIcon: "🏢",
-    role: "MLOps Intern",
+    role: "Software Engineer | AI Platforms & LLMOps",
     duration: "6 months",
     problem: "The AI team needed to evaluate 16+ LLMs for production deployment but had no standardized way to compare latency, throughput, and answer quality across models — each evaluation was manual and inconsistent.",
     approach: [
@@ -49,12 +50,12 @@ const CASE_STUDIES: CaseStudy[] = [
     problem: "Automotive ECU software testing relied on manual test-case creation, which was slow, incomplete, and couldn't keep pace with increasing cybersecurity threats in connected vehicles.",
     approach: [
       "Benchmarked 16 LLM models in Azure AI Foundry to identify the best candidates for code-flaw detection in embedded C/C++ code",
-      "Implemented AI-driven black-box fuzzing by generating adversarial test inputs using LLM inference",
+      "Implemented AI-driven white-box fuzzing by generating adversarial test inputs for C++ automotive compute platforms",
       "Containerized the LLM inference services and integrated them into existing CI/CD/CT pipelines",
       "Designed Azure Private Link architecture for secure, air-gapped LLM access in the automotive security context",
     ],
     solution: "An automated LLM-powered fuzz-testing pipeline that generates intelligent test cases, integrates into existing CI/CD workflows, and significantly improves ECU software security coverage.",
-    techStack: ["Azure AI Foundry", "LLMs (16 models)", "Docker", "CI/CD/CT", "Black-Box Fuzzing", "Azure Private Link"],
+    techStack: ["Azure AI Foundry", "LLMs (16 models)", "LoRA / QLoRA", "GitHub Actions", "CI/CD/CT", "Azure Private Link"],
     results: [
       { metric: "Flaw Detection", value: "+13%", improvement: "code-flaw detection rate" },
       { metric: "Test Creation", value: "-33%", improvement: "time reduction" },
@@ -175,6 +176,9 @@ export default function CaseStudies() {
                   <span className="cs-takeaway-icon">💡</span>
                   <p className="cs-takeaway-text">{cs.keyTakeaway}</p>
                 </div>
+                {cs.id === "cariad-fuzzing" && (
+                  <Link className="btn btn--outline cs-thesis-link" to="/thesis">Explore the full thesis record →</Link>
+                )}
               </div>
             )}
           </div>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useTypingEffect,
   useMouseParallax,
@@ -8,86 +8,76 @@ import {
   useCardTilt,
 } from "../hooks/useAnimations";
 import { portfolioData } from "../data/portfolioData";
+import { flagshipProjectTitles, projectSlug } from "../data/projectUtils";
+import { portfolioCommands } from "../data/commands";
 import profileImg from "../assets/profile-github.jpg";
 import Layout from "../components/portfolio/Layout";
-import { FloatingCodeSnippets } from "../components/portfolio/Visualizations";
+import { CinematicMotionField, FloatingCodeSnippets } from "../components/portfolio/Visualizations";
+import PublicSignals from "../components/portfolio/PublicSignals";
 import "./Index.css";
 
-// ========== PARTICLE CANVAS ==========
-const ParticleCanvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    let particles: { x: number; y: number; vx: number; vy: number; r: number; o: number }[] = [];
-    const mouse = { x: -1000, y: -1000 };
-
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const count = Math.min(80, Math.floor(window.innerWidth / 18));
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 2 + 0.5, o: Math.random() * 0.5 + 0.1,
-      });
-    }
-
-    const onMouse = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; };
-    window.addEventListener("mousemove", onMouse);
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const theme = document.documentElement.getAttribute("data-theme");
-      const dotColor = theme === "dark" ? "200, 160, 120" : "180, 100, 60";
-      const lineColor = theme === "dark" ? "200, 160, 120" : "180, 100, 60";
-
-      particles.forEach((p) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        const dx = p.x - mouse.x, dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) { p.x += dx * 0.02; p.y += dy * 0.02; }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${dotColor}, ${p.o})`; ctx.fill();
-      });
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 140) {
-            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${lineColor}, ${0.06 * (1 - d / 140)})`; ctx.lineWidth = 0.6; ctx.stroke();
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); window.removeEventListener("mousemove", onMouse); };
-  }, []);
-
-  return <canvas ref={canvasRef} className="particle-canvas" />;
-};
-
 // ========== STAT COUNTER ==========
-const StatCounter = ({ value, label, icon }: { value: number; label: string; icon: string }) => {
+const StatCounter = ({ value, label, icon, suffix = "+" }: { value: number; label: string; icon: string; suffix?: string }) => {
   const { ref, isInView } = useInView();
   const count = useCounter(value, 2200, 0, isInView);
   return (
     <div ref={ref} className="stat-item">
       <span className="stat-icon">{icon}</span>
-      <span className="stat-number">{count}<span className="stat-plus">+</span></span>
+      <span className="stat-number">{count}<span className="stat-plus">{suffix}</span></span>
       <span className="stat-label">{label}</span>
+    </div>
+  );
+};
+
+const HomeExperienceEntry = ({ exp, index }: { exp: typeof portfolioData.experiences[0]; index: number }) => {
+  const { ref, isInView } = useInView();
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div
+      ref={ref}
+      className={`tl-item ${isInView ? "tl-item--visible" : ""}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div className="tl-dot"><span>{exp.icon}</span></div>
+      <div className="tl-card" onClick={() => setExpanded((value) => !value)}>
+        <div className="tl-top">
+          <span className="tl-period">{exp.period}</span>
+          <span className="tl-loc">{exp.location}</span>
+        </div>
+        <h3 className="tl-role">{exp.role}</h3>
+        <div className="tl-company-row">
+          <a
+            href={exp.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tl-company-link"
+            onClick={(event) => event.stopPropagation()}
+          >
+            {exp.company} <span className="tl-ext">↗</span>
+          </a>
+        </div>
+        <span className="tl-desc-line">{exp.description}</span>
+        <div className="tl-metrics">
+          {exp.metrics.map((metric) => <span key={metric} className="metric-badge">{metric}</span>)}
+        </div>
+        <div className={`tl-expand ${expanded ? "tl-expand--open" : ""}`}>
+          <ul className="tl-bullets">{exp.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>
+          <div className="tl-tech-row">{exp.tech.map((tech) => <span key={tech} className="tag">{tech}</span>)}</div>
+        </div>
+        <button
+          type="button"
+          className="tl-toggle"
+          aria-expanded={expanded}
+          onClick={(event) => {
+            event.stopPropagation();
+            setExpanded((value) => !value);
+          }}
+        >
+          <span className={`tl-chevron ${expanded ? "tl-chevron--up" : ""}`}>↓</span>
+          <span>{expanded ? "Less" : "More details"}</span>
+        </button>
+      </div>
     </div>
   );
 };
@@ -99,7 +89,7 @@ const TiltProjectCard = ({ project, index }: { project: typeof portfolioData.pro
 
   return (
     <div ref={viewRef} className={`reveal-item ${isInView ? 'revealed' : ''}`} style={{ transitionDelay: `${index * 100}ms` }}>
-      <div ref={tiltRef} className="project-card" onMouseMove={handleMove} onMouseLeave={handleLeave}>
+      <div ref={tiltRef} className={`project-card ${index === 0 ? 'project-card--lead' : ''}`} onMouseMove={handleMove} onMouseLeave={handleLeave}>
         <div className="project-card-shine" />
         <span className="project-num">{String(index + 1).padStart(2, '0')}</span>
         <h3 className="project-title">{project.title}</h3>
@@ -109,6 +99,14 @@ const TiltProjectCard = ({ project, index }: { project: typeof portfolioData.pro
           <span className="impact-dot" /><span className="impact-text">{project.impact}</span>
         </div>
         <div className="project-tags">{project.tags.map((t) => <span key={t} className="tag">{t}</span>)}</div>
+        <Link className="project-link project-link--record" to={`/projects/${projectSlug(project.title)}`} onClick={e => e.stopPropagation()}>
+          Read project record <span>→</span>
+        </Link>
+        {"demo" in project && project.demo && (
+          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link" onClick={e => e.stopPropagation()}>
+            Live demo <span className="link-arrow">↗</span>
+          </a>
+        )}
         {project.github && (
           <div className="project-links">
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link" onClick={e => e.stopPropagation()}>
@@ -119,6 +117,125 @@ const TiltProjectCard = ({ project, index }: { project: typeof portfolioData.pro
         )}
       </div>
     </div>
+  );
+};
+
+const flagshipArchitecture: Record<string, { nodes: string[]; caption: string }> = {
+  FlowBoard: {
+    nodes: ["React / TS", "Symfony API", "AI planner", "Postgres + Redis"],
+    caption: "Collaborate → decompose → execute",
+  },
+  ZyntriQ: {
+    nodes: ["Blazor UI", "Roslyn compiler", "WASM runtime", "Diagnostics"],
+    caption: "Write → compile → inspect",
+  },
+  ReconKit: {
+    nodes: ["Scope gates", "25 modules", "Assessment", "Reports + CI"],
+    caption: "Authorize → assess → report",
+  },
+};
+
+const engineeringPrinciples = [
+  {
+    index: "01",
+    title: "Make the system legible",
+    body: "I turn ambiguous requirements into explicit boundaries, contracts, diagrams, and decisions that a team can inspect before implementation grows expensive.",
+    signal: "Architecture before abstraction",
+  },
+  {
+    index: "02",
+    title: "Measure the failure modes",
+    body: "Evaluation, replay, tracing, and regression gates belong beside the feature so reliability is part of delivery rather than a final promise.",
+    signal: "Evidence beside output",
+  },
+  {
+    index: "03",
+    title: "Ship useful slices",
+    body: "I prefer a small end-to-end path that users can exercise, then deepen the system with stronger controls, performance, and observability.",
+    signal: "Feedback over ceremony",
+  },
+  {
+    index: "04",
+    title: "Keep power governable",
+    body: "AI systems need scope controls, authorization, privacy boundaries, and human review paths that remain understandable under pressure.",
+    signal: "Safety is a product feature",
+  },
+];
+
+const EngineeringPrinciple = ({ principle, index }: { principle: typeof engineeringPrinciples[number]; index: number }) => {
+  const { ref, isInView } = useInView();
+
+  return (
+    <article
+      ref={ref}
+      className={`principle-card ${isInView ? "principle-card--visible" : ""}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div className="principle-card-top">
+        <span className="principle-index">{principle.index}</span>
+        <span className="principle-signal">{principle.signal}</span>
+      </div>
+      <h3>{principle.title}</h3>
+      <p>{principle.body}</p>
+      <span className="principle-marker" aria-hidden="true">↗</span>
+    </article>
+  );
+};
+
+const FlagshipProjectCard = ({ project, index }: { project: typeof portfolioData.projects[number]; index: number }) => {
+  const { ref, isInView } = useInView();
+  const architecture = flagshipArchitecture[project.title];
+
+  return (
+    <article
+      ref={ref}
+      className={`flagship-card flagship-card--${index + 1} ${isInView ? "flagship-card--visible" : ""}`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      <div className="flagship-card-topline">
+        <span>0{index + 1} / Flagship</span>
+        <span>{project.tags[0]}</span>
+      </div>
+      <div className="flagship-visual" aria-label={`${project.title} system flow`}>
+        <div className="flagship-visual-grid" />
+        <svg className="flagship-flow" viewBox="0 0 460 128" role="img">
+          {architecture.nodes.slice(0, -1).map((_, nodeIndex) => (
+            <line
+              key={`line-${nodeIndex}`}
+              x1={82 + nodeIndex * 98}
+              y1="64"
+              x2={130 + nodeIndex * 98}
+              y2="64"
+              className="flagship-flow-line"
+            />
+          ))}
+          {architecture.nodes.map((node, nodeIndex) => (
+            <g key={node}>
+              <circle cx={58 + nodeIndex * 98} cy="64" r="18" className="flagship-flow-node" />
+              <text x={58 + nodeIndex * 98} y="68" textAnchor="middle" className="flagship-flow-index">
+                {String(nodeIndex + 1).padStart(2, "0")}
+              </text>
+              <text x={58 + nodeIndex * 98} y="108" textAnchor="middle" className="flagship-flow-label">
+                {node}
+              </text>
+            </g>
+          ))}
+        </svg>
+        <span className="flagship-flow-caption">{architecture.caption}</span>
+      </div>
+      <div className="flagship-card-copy">
+        <span className="project-subtitle">{project.subtitle}</span>
+        <h3 className="project-title">{project.title}</h3>
+        <p className="project-desc">{project.desc}</p>
+        <div className="project-impact-row"><span className="impact-dot" /><span className="impact-text">{project.impact}</span></div>
+        <div className="project-tags">{project.tags.slice(0, 4).map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+      </div>
+      <div className="flagship-actions">
+        <Link className="project-link project-link--record" to={`/projects/${projectSlug(project.title)}`}>Read case study <span>→</span></Link>
+        {"demo" in project && project.demo && <a className="project-link project-link--demo" href={project.demo} target="_blank" rel="noopener noreferrer">Live demo <span>↗</span></a>}
+        {project.github && <a className="project-link" href={project.github} target="_blank" rel="noopener noreferrer">Repository <span>↗</span></a>}
+      </div>
+    </article>
   );
 };
 
@@ -160,15 +277,18 @@ const Home = () => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Show only top 4 featured projects on Home
-  const featuredProjects = portfolioData.projects.slice(0, 4);
+  const flagshipProjects = portfolioData.projects.filter((project) => flagshipProjectTitles.has(project.title));
+  const visibleCommands = portfolioCommands.slice(0, 4);
 
   return (
     <Layout theme={theme} setTheme={setTheme}>
-      <ParticleCanvas />
-
       {/* Hero */}
       <section id="hero" className="hero">
+        <FloatingCodeSnippets />
+        <CinematicMotionField />
+        <div className="hero-scanline" aria-hidden="true" />
+        <div className="hero-energy-ring hero-energy-ring--one" aria-hidden="true" />
+        <div className="hero-energy-ring hero-energy-ring--two" aria-hidden="true" />
         <div className="hero-bg-pattern" />
         <div className="hero-gradient-mesh" />
         <div className="hero-orb hero-orb--1" />
@@ -196,8 +316,6 @@ const Home = () => {
           </path>
         </svg>
 
-        <FloatingCodeSnippets />
-
         <div className="hero-content" style={{ transform: `translate(${mouse.x}px, ${mouse.y}px)` }}>
           <div className="hero-left">
             <div className="hero-avatar-wrap">
@@ -214,7 +332,21 @@ const Home = () => {
           <div className="hero-right">
             <div className="hero-badge hero-stagger" style={{ animationDelay: '0.2s' }}>
               <span className="hero-badge-dot" />
-              <span>AI Engineer · MLOps · Data Science</span>
+              <span>Developer Tools · AI Systems · Infrastructure</span>
+            </div>
+            <div className="hero-command-dock" aria-label="Featured engineering commands">
+              <div className="hero-command-dock__top">
+                <span className="hero-command-dock__label">Live command shelf</span>
+                <Link to="/commands" className="hero-command-dock__link">Open all commands <span aria-hidden="true">→</span></Link>
+              </div>
+              <div className="hero-command-dock__list">
+                {visibleCommands.map((item) => (
+                  <Link className="hero-command-chip" to="/commands" key={item.title}>
+                    <span className="hero-command-chip__category">{item.category}</span>
+                    <code>{item.command.split("\n")[0]}</code>
+                  </Link>
+                ))}
+              </div>
             </div>
             <span className="hero-eyebrow hero-stagger" style={{ animationDelay: '0.35s' }}>Hello, I'm</span>
             <h1 className="hero-name hero-stagger" style={{ animationDelay: '0.5s' }}>
@@ -233,7 +365,9 @@ const Home = () => {
                 <span className="terminal-cursor" />
               </div>
             </div>
-            <p className="hero-tagline hero-stagger" style={{ animationDelay: '0.8s' }}>{portfolioData.tagline}</p>
+            <p className="hero-tagline hero-stagger" style={{ animationDelay: '0.8s' }}>
+              I turn ambiguous AI and infrastructure problems into systems that are understandable, testable, and useful — from model routing and agent safety to data products and developer tools.
+            </p>
             <div className="hero-stats-row hero-stagger" style={{ animationDelay: '0.95s' }}>
               {portfolioData.stats.slice(0, 3).map((s, i) => (
                 <React.Fragment key={s.label}>
@@ -252,6 +386,9 @@ const Home = () => {
               <button className="btn btn--outline" onClick={() => navigate('/about')}>
                 <span>About Me</span>
               </button>
+              <a className="btn btn--ghost" href={portfolioData.resume} target="_blank" rel="noopener noreferrer">
+                <span>Interim Resume</span><span className="btn-arrow">↗</span>
+              </a>
             </div>
             <div className="hero-links hero-stagger" style={{ animationDelay: '1.25s' }}>
               <a href={portfolioData.github} target="_blank" rel="noopener noreferrer" className="hero-link" aria-label="GitHub">
@@ -267,6 +404,19 @@ const Home = () => {
                 <span>Email</span>
               </a>
             </div>
+            <div className="hero-proof hero-stagger" style={{ animationDelay: '1.4s' }}>
+              <div className="hero-proof-heading">
+                <span>Current practice</span>
+                <span className="hero-proof-rule" />
+                <span>01—04</span>
+              </div>
+              <div className="hero-proof-list">
+                <span><b>01</b> Model routing & evaluation</span>
+                <span><b>02</b> Governed agent workflows</span>
+                <span><b>03</b> AI infrastructure & runtimes</span>
+                <span><b>04</b> Applied data products</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -281,26 +431,89 @@ const Home = () => {
         <div className="hero-scroll"><span>Scroll</span><div className="scroll-bar"><div className="scroll-bar-fill" /></div></div>
       </section>
 
+      {/* Experience snapshot */}
+      <section id="experience" className="stats-section">
+        <div className="stats-inner">
+          {portfolioData.stats.slice(0, 4).map((stat) => (
+            <StatCounter
+              key={stat.label}
+              value={stat.value}
+              label={stat.label}
+              icon={stat.icon}
+              suffix={stat.label === "Companies Worked" ? "" : "+"}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="section section--alt">
+        <div className="section-container">
+          <div className="section-header">
+            <span className="section-eyebrow">Five years, six companies</span>
+            <h2 className="section-title">Experience<br /><span className="accent-text">In Practice</span></h2>
+            <p className="section-sub">
+              A chronological view of the teams, products, and systems I have worked on across AI platforms, automotive software, data, and infrastructure.
+            </p>
+          </div>
+          <div className="timeline">
+            <div className="timeline-track" />
+            {portfolioData.experiences.map((experience, index) => (
+              <HomeExperienceEntry key={`${experience.company}-${experience.period}`} exp={experience} index={index} />
+            ))}
+          </div>
+          <div className="experience-more">
+            <Link className="btn btn--outline" to="/about">View full profile →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section principles-section">
+        <div className="section-container">
+          <div className="section-header">
+            <span className="section-eyebrow">Engineering point of view</span>
+            <h2 className="section-title">How I<br /><span className="accent-text">Work</span></h2>
+            <p className="section-sub">
+              The patterns behind the projects: make complex systems easier to reason about, easier to test, and safer to operate.
+            </p>
+          </div>
+          <div className="principles-grid">
+            {engineeringPrinciples.map((principle, index) => (
+              <EngineeringPrinciple key={principle.index} principle={principle} index={index} />
+            ))}
+          </div>
+          <div className="principles-footer">
+            <span className="principles-footer-rule" />
+            <span>Systems thinking · measurable delivery · responsible automation</span>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Projects */}
       <section id="projects" className="section">
         <div className="section-container">
           <div className="section-header">
-            <span className="section-eyebrow">Portfolio</span>
+            <span className="section-eyebrow">Flagship case studies</span>
             <h2 className="section-title">Featured<br /><span className="accent-text">Projects</span></h2>
-            <p className="section-sub">Real-world solutions with measurable impact</p>
+            <p className="section-sub">Three personal systems presented as visual records: what they solve, how they are structured, and where to inspect the work.</p>
           </div>
-          <div className="projects-grid">
-            {featuredProjects.map((p, i) => <TiltProjectCard key={p.title} project={p} index={i} />)}
+          <div className="flagship-grid">
+            {flagshipProjects.map((p, i) => <FlagshipProjectCard key={p.title} project={p} index={i} />)}
           </div>
-          {portfolioData.projects.length > 4 && (
-            <div style={{ textAlign: 'center', marginTop: 32 }}>
-              <button className="btn btn--outline" onClick={() => navigate('/about#projects')}>
-                View All Projects →
-              </button>
-            </div>
-          )}
+          <div className="project-collection-actions">
+            <button className="btn btn--primary" onClick={() => navigate('/projects?scope=selected')}>
+              Explore 9 selected projects <span className="btn-arrow">→</span>
+            </button>
+            <button className="btn btn--outline" onClick={() => navigate('/projects?scope=all')}>
+              Browse all projects <span className="btn-arrow">→</span>
+            </button>
+            <button className="btn btn--ghost" onClick={() => navigate('/thesis')}>
+              Read the thesis <span className="btn-arrow">↗</span>
+            </button>
+          </div>
         </div>
       </section>
+
+      <PublicSignals />
 
       {/* Testimonials */}
       <section id="testimonials" className="section section--alt">
@@ -353,16 +566,27 @@ const Home = () => {
             </div>
             <form className="contact-form" onSubmit={(e) => {
               e.preventDefault();
-              window.open(`mailto:${portfolioData.email}?subject=Portfolio Contact from ${contactForm.name}&body=${encodeURIComponent(contactForm.message)}%0A%0AFrom: ${contactForm.email}`);
+              const subject = encodeURIComponent(`Portfolio Contact from ${contactForm.name}`);
+              const body = encodeURIComponent(`${contactForm.message}\n\nFrom: ${contactForm.email}`);
+              window.open(`mailto:${portfolioData.email}?subject=${subject}&body=${body}`);
               setFormSent(true);
               setTimeout(() => setFormSent(false), 3000);
             }}>
               <h3 className="form-title">Send a Message</h3>
               <div className="form-row">
-                <input className="form-input" placeholder="Your Name" required value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} />
-                <input className="form-input" placeholder="Your Email" type="email" required value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} />
+                <label className="form-field">
+                  <span className="form-label">Your Name</span>
+                  <input className="form-input" placeholder="Your Name" required value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} />
+                </label>
+                <label className="form-field">
+                  <span className="form-label">Your Email</span>
+                  <input className="form-input" placeholder="Your Email" type="email" required value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} />
+                </label>
               </div>
-              <textarea className="form-textarea" placeholder="Your message..." rows={4} required value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} />
+              <label className="form-field">
+                <span className="form-label">Your message</span>
+                <textarea className="form-textarea" placeholder="Your message..." rows={4} required value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} />
+              </label>
               <button type="submit" className="btn btn--primary form-submit">
                 {formSent ? '✓ Opening Mail Client...' : 'Send Message →'}
               </button>
