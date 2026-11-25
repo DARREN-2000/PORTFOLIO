@@ -474,6 +474,87 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
   overflow: hidden;
 }
 
+.cinematic-motion-field {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.82;
+  pointer-events: auto;
+  mix-blend-mode: screen;
+}
+
+.hero-scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.15;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 5px,
+    hsla(200, 80%, 70%, 0.12) 6px,
+    transparent 7px
+  );
+  animation: scanlineSweep 12s linear infinite;
+}
+
+.hero-energy-ring {
+  position: absolute;
+  z-index: 2;
+  width: min(52vw, 680px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.22;
+  box-shadow: inset 0 0 70px var(--primary-dim), 0 0 50px var(--accent-dim);
+}
+
+.hero-energy-ring::before,
+.hero-energy-ring::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border: 1px dashed color-mix(in srgb, var(--primary) 55%, transparent);
+  border-radius: inherit;
+}
+
+.hero-energy-ring::after {
+  inset: 22%;
+  border-style: solid;
+  border-color: transparent var(--primary) transparent transparent;
+}
+
+.hero-energy-ring--one {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(18deg);
+  animation: energyOrbit 22s linear infinite;
+}
+
+.hero-energy-ring--two {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-22deg) scale(0.74);
+  animation: energyOrbitReverse 16s linear infinite;
+}
+
+@keyframes scanlineSweep {
+  from { transform: translateY(-12%); }
+  to { transform: translateY(12%); }
+}
+
+@keyframes energyOrbit {
+  to { transform: translate(-50%, -50%) rotate(378deg); }
+}
+
+@keyframes energyOrbitReverse {
+  to { transform: translate(-50%, -50%) rotate(-382deg) scale(0.74); }
+}
+
 .floating-snippet {
   position: absolute;
   display: flex;
@@ -787,6 +868,12 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
   background: color-mix(in srgb, var(--bg-card) 92%, transparent);
   box-shadow: 0 18px 42px hsla(220, 20%, 12%, 0.12);
   backdrop-filter: blur(14px);
+  animation: commandDockEnter 1s 1.15s both cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes commandDockEnter {
+  from { opacity: 0; transform: translateY(20px) rotateX(-8deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
 }
 
 .hero-command-dock__top {
@@ -833,6 +920,16 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
   background: var(--bg-alt);
   text-decoration: none;
   transition: border-color .2s, transform .2s, background .2s;
+  animation: commandChipPulse 5s ease-in-out infinite;
+}
+
+.hero-command-chip:nth-child(2) { animation-delay: -1.2s; }
+.hero-command-chip:nth-child(3) { animation-delay: -2.4s; }
+.hero-command-chip:nth-child(4) { animation-delay: -3.6s; }
+
+@keyframes commandChipPulse {
+  0%, 100% { box-shadow: 0 0 0 transparent; }
+  50% { box-shadow: 0 0 24px var(--primary-dim); }
 }
 
 .hero-command-chip:hover,
@@ -2309,6 +2406,15 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
   box-shadow: var(--card-shadow-hover);
 }
 
+.project-card:hover .project-title {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+.project-title {
+  transition: color .3s ease, transform .3s ease;
+}
+
 .projects-archive { padding-top: 140px; }
 .archive-controls {
   display: flex;
@@ -3749,6 +3855,8 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
   .floating-snippets { display: block; opacity: .7; }
   .floating-snippet { max-width: 145px; padding: 6px 8px; font-size: 9px; }
   .floating-snippet:nth-child(n + 7) { display: none; }
+  .cinematic-motion-field { opacity: 0.38; }
+  .hero-energy-ring { width: 92vw; opacity: 0.14; }
   .hero-command-dock { margin-top: 18px; text-align: left; }
   .hero-command-dock__list { grid-template-columns: 1fr; }
   .projects-archive { padding-top: 110px; }
@@ -3852,6 +3960,13 @@ h1, h2, h3, .hero-name, .section-title, .edu-degree {
     animation: none !important;
     opacity: 0.55;
   }
+  .hero-scanline,
+  .hero-energy-ring,
+  .hero-command-dock,
+  .hero-command-chip {
+    animation: none !important;
+  }
+  .project-title { transition: none; }
 }
 
 /* ========== SELECTION ========== */

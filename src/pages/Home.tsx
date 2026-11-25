@@ -12,7 +12,7 @@ import { flagshipProjectTitles, projectSlug } from "../data/projectUtils";
 import { portfolioCommands } from "../data/commands";
 import profileImg from "../assets/profile-github.jpg";
 import Layout from "../components/portfolio/Layout";
-import { FloatingCodeSnippets } from "../components/portfolio/Visualizations";
+import { CinematicMotionField, FloatingCodeSnippets } from "../components/portfolio/Visualizations";
 import PublicSignals from "../components/portfolio/PublicSignals";
 import "./Index.css";
 
@@ -285,6 +285,10 @@ const Home = () => {
       {/* Hero */}
       <section id="hero" className="hero">
         <FloatingCodeSnippets />
+        <CinematicMotionField />
+        <div className="hero-scanline" aria-hidden="true" />
+        <div className="hero-energy-ring hero-energy-ring--one" aria-hidden="true" />
+        <div className="hero-energy-ring hero-energy-ring--two" aria-hidden="true" />
         <div className="hero-bg-pattern" />
         <div className="hero-gradient-mesh" />
         <div className="hero-orb hero-orb--1" />
