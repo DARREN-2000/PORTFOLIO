@@ -44,6 +44,11 @@ const Layout: React.FC<LayoutProps> = ({ children, theme, setTheme }) => {
   }, [location.pathname]);
 
   useEffect(() => {
+    localStorage.setItem('portfolio-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
     const pageTitles: Record<string, string> = {
       "/": "Morris Darren Babu — Founding Engineer | AI Platforms & LLMOps",
       "/about": "About Morris Darren Babu — Founding Engineer",
